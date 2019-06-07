@@ -4,11 +4,9 @@ module.exports = {
     author: `Kyle Mathews`,
     description: `A starter blog demonstrating what Gatsby can do.`,
     siteUrl: `https://gatsby-starter-blog-demo.netlify.com/`,
-    social: {
-      twitter: `kylemathews`,
-    },
   },
   plugins: [
+    `gatsby-plugin-netlify-cms`,
     {
       resolve: `gatsby-source-filesystem`,
       options: {
