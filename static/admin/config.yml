@@ -16,14 +16,14 @@ collections:
     fields:
       - { name: "templateKey", label: "Template Key", widget: "hidden", default: "blog-post"}
       - { name: "title", label: "Title", widget: "string" }
-      - { name: "description", label: "Description",  widget: "string" }
+      - { name: "description", label: "Description",  widget: "string", required: false }
       - { name: "body", label: "Body", widget: "markdown" }
       - { name: "author", label: "Author", widget: "relation", collection: "author", searchFields: ["name"], valueField: "name", multiple: false }
-      - { name: "category", label: "Category", widget: "relation", collection: "category", searchFields: ["title"], valueField: "title", multiple: true }
-      - { name: "featureImage", label: "Feature Image", widget: "image" }
+      - { name: "category", label: "Category", widget: "relation", collection: "category", searchFields: ["title"], valueField: "title", multiple: true, required: false }
+      - { name: "featureImage", label: "Feature Image", widget: "image", required: false }
       - { name: "path", label: "Path", widget: "string" }
       - { name: "date", label: "Date", widget: date }
-      - { name: "featured",label: "Featured", widget: "boolean", default: false}
+      - { name: "featured",label: "Featured", widget: "boolean", default: false, required: false}
       - name: "metadata"
         label: "Metadata"
         widget: "object" 
@@ -44,7 +44,7 @@ collections:
       - { name: "templateKey", label: "Template Key", widget: "hidden", default: "category"}
       - { name: title, label: Title }
       - { name: path, label: Path }
-      - { name: "sidebar",label: "Sidebar Display", widget: "boolean", default: false}
+      - { name: "sidebar",label: "Sidebar Display", widget: "boolean", default: false, required: false}
       - name: "metadata"
         label: "Metadata"
         widget: "object" 
