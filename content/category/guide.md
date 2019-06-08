@@ -1,7 +1,7 @@
 ---
 templateKey: category
 title: Guide
-sidebar: false
+sidebar: true
 metadata: {}
 ---
 
