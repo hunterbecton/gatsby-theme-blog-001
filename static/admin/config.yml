@@ -5,7 +5,7 @@ backend:
 media_folder: static/img
 public_folder: /img
 
-logo_url: https://images.ctfassets.net/clveum0ikkbk/3Z3uUJ14ejjBU9y7laQhGG/defb02825acf42bf40233b25a5b64412/simple-about-me.jpg?w=1024&h=576&q=100
+logo_url: blob:https://loving-goldstine-15a3a3.netlify.com/513bde7f-a205-4061-a404-a230a6001fe9
 
 collections:
   - name: blog
