@@ -27,12 +27,11 @@ collections:
       - name: "metadata"
         label: "Metadata"
         widget: "object" 
-        required: false
         fields: 
-        - { name: seoTitle, label: SEO Title, widget: "string" }
-        - { name: seoDescription, label: SEO Description, widget: "text" }
-        - { name: seoImage, label: SEO Image, widget: "image" }
-        - { name: seoKeywords, label: SEO Keywords, widget: "string" }
+        - { name: seoTitle, label: SEO Title, widget: "string", required: false }
+        - { name: seoDescription, label: SEO Description, widget: "text", required: false }
+        - { name: seoImage, label: SEO Image, widget: "image", required: false }
+        - { name: seoKeywords, label: SEO Keywords, widget: "string", required: false }
 
   - name: category
     label: Category
@@ -51,10 +50,10 @@ collections:
         widget: "object" 
         required: false
         fields: 
-        - { name: seoTitle, label: SEO Title, widget: "string" }
-        - { name: seoDescription, label: SEO Description, widget: "text" }
-        - { name: seoImage, label: SEO Image, widget: "image" }
-        - { name: seoKeywords, label: SEO Keywords, widget: "string" }
+        - { name: seoTitle, label: SEO Title, widget: "string", required: false }
+        - { name: seoDescription, label: SEO Description, widget: "text", required: false }
+        - { name: seoImage, label: SEO Image, widget: "image", required: false }
+        - { name: seoKeywords, label: SEO Keywords, widget: "string", required: false }
 
   - name: author
     label: Author
@@ -73,7 +72,7 @@ collections:
         widget: "object" 
         required: false
         fields: 
-        - { name: seoTitle, label: SEO Title, widget: "string" }
-        - { name: seoDescription, label: SEO Description, widget: "text" }
-        - { name: seoImage, label: SEO Image, widget: "image" }
-        - { name: seoKeywords, label: SEO Keywords, widget: "string" }
+        - { name: seoTitle, label: SEO Title, widget: "string", required: false }
+        - { name: seoDescription, label: SEO Description, widget: "text", required: false }
+        - { name: seoImage, label: SEO Image, widget: "image", required: false }
+        - { name: seoKeywords, label: SEO Keywords, widget: "string", required: false }
