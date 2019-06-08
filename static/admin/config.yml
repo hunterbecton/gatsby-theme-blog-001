@@ -37,13 +37,12 @@ collections:
     label: Category
     folder: content/category
     create: true
-    slug: "{{year}}-{{month}}-{{day}}-{{slug}}"
+    slug: "{{slug}}"
     editor:
      preview: false
     fields:
       - { name: "templateKey", label: "Template Key", widget: "hidden", default: "category"}
       - { name: title, label: Title }
-      - { name: path, label: Path }
       - { name: "sidebar",label: "Sidebar Display", widget: "boolean", default: false, required: false}
       - name: "metadata"
         label: "Metadata"
@@ -59,14 +58,13 @@ collections:
     label: Author
     folder: content/author
     create: true
-    slug: "{{year}}-{{month}}-{{day}}-{{slug}}"
+    slug: "{{slug}}"
     editor:
      preview: false
     fields:
       - { name: "templateKey", label: "Template Key", widget: "hidden", default: "author"}
       - { name: name, label: Name }
       - { name: profileImage, label: Profile Image, widget: "image" }
-      - { name: path, label: Path }
       - name: "metadata"
         label: "Metadata"
         widget: "object" 

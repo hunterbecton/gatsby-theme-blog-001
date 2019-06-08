@@ -4,7 +4,6 @@ import { Link, graphql } from "gatsby"
 import Bio from "../components/bio"
 import Layout from "../components/layout"
 import SEO from "../components/seo"
-import { rhythm, scale } from "../utils/typography"
 
 class BlogPostTemplate extends React.Component {
   render() {
@@ -16,25 +15,14 @@ class BlogPostTemplate extends React.Component {
       <Layout location={this.props.location} title={siteTitle}>
         <SEO
           title={post.frontmatter.title}
-          description={post.frontmatter.description || post.excerpt}
+          description={post.frontmatter.description}
         />
         <h1>{post.frontmatter.title}</h1>
-        <p
-          style={{
-            ...scale(-1 / 5),
-            display: `block`,
-            marginBottom: rhythm(1),
-            marginTop: rhythm(-1),
-          }}
-        >
-          {post.frontmatter.date}
-        </p>
+        <p>{post.frontmatter.author}</p>
+        <p>{post.frontmatter.date}</p>
+        <p>{post.frontmatter.category}</p>
         <div dangerouslySetInnerHTML={{ __html: post.html }} />
-        <hr
-          style={{
-            marginBottom: rhythm(1),
-          }}
-        />
+        <hr/>
         <Bio />
 
         <ul
@@ -78,12 +66,14 @@ export const pageQuery = graphql`
     }
     markdownRemark(fields: { slug: { eq: $slug } }) {
       id
-      excerpt(pruneLength: 160)
       html
       frontmatter {
         title
         date(formatString: "MMMM DD, YYYY")
         description
+        author
+        category
+        featureImage
       }
     }
   }
