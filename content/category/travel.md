@@ -1,8 +1,7 @@
 ---
 templateKey: category
 title: Travel
-path: travel
-sidebar: false
+sidebar: true
 metadata: {}
 ---
 
