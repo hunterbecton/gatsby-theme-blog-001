@@ -5,7 +5,7 @@ backend:
 media_folder: static/img
 public_folder: /img
 
-logo_url: https://loving-goldstine-15a3a3.netlify.com/513bde7f-a205-4061-a404-a230a6001fe9
+logo_url: https://www.dropbox.com/home/Skillthrive/Design/Logo?preview=Skillthrive_logo.png
 
 collections:
   - name: blog
