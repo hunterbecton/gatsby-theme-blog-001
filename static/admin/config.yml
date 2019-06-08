@@ -35,7 +35,7 @@ collections:
       - { name: "category", label: "Category", widget: "relation", collection: "category", searchFields: ["title"], valueField: "title", multiple: true }
       - { name: "author", label: "Author", widget: "relation", collection: "author", searchFields: ["name"], valueField: "name", multiple: false }
       - { name: "featureImage", label: "Feature Image", widget: "image" }
-      - { name: "metadata", label: "Metadata", widget: "object"
+      - { name: "metadata", label: "Metadata", widget: "object",
       fields: 
         - { name: seoTitle, label: SEO Title, widget: "string" }
         - { name: seoDescription, label: SEO Description, widget: "text" }
