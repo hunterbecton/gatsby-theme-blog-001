@@ -27,6 +27,7 @@ collections:
       - name: "metadata"
         label: "Metadata"
         widget: "object" 
+        required: "false"
         fields: 
         - { name: seoTitle, label: SEO Title, widget: "string" }
         - { name: seoDescription, label: SEO Description, widget: "text" }
@@ -48,6 +49,7 @@ collections:
       - name: "metadata"
         label: "Metadata"
         widget: "object" 
+        required: "false"
         fields: 
         - { name: seoTitle, label: SEO Title, widget: "string" }
         - { name: seoDescription, label: SEO Description, widget: "text" }
@@ -69,6 +71,7 @@ collections:
       - name: "metadata"
         label: "Metadata"
         widget: "object" 
+        required: "false"
         fields: 
         - { name: seoTitle, label: SEO Title, widget: "string" }
         - { name: seoDescription, label: SEO Description, widget: "text" }
