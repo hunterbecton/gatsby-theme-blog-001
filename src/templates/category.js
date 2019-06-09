@@ -37,7 +37,7 @@ class CategoryTemplate extends React.Component {
 export default CategoryTemplate
 
 export const pageQuery = graphql`
-  query CategoryBySlug($category: String!) {
+  query PostsByCategory($category: String!) {
     site {
       siteMetadata {
         title
@@ -55,7 +55,7 @@ export const pageQuery = graphql`
             path
             title
             date
-            author
+            authors
             categories
             description
           }

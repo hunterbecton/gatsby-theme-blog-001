@@ -71,7 +71,7 @@ export const pageQuery = graphql`
         title
         date(formatString: "MMMM DD, YYYY")
         description
-        author
+        authors
         categories
         featureImage
       }

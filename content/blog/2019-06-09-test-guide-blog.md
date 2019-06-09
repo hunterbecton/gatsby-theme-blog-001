@@ -2,7 +2,8 @@
 templateKey: blog-post
 title: Test Guide Blog
 description: Just another test blog
-author: Hunter Becton
+authors: 
+  - Hunter Becton
 categories:
   - Guide
 path: test-guide-blog

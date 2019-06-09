@@ -1,7 +1,8 @@
 ---
 templateKey: blog-post
 title: A new blog for a new day!
-author: Hunter Becton
+authors: 
+  - Hunter Becton
 categories:
   - Travel
 path: a-new-day
