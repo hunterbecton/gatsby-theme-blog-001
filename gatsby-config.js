@@ -9,12 +9,27 @@ module.exports = {
     },
   },
   plugins: [
+    `gatsby-remark-relative-images`,
     `gatsby-plugin-netlify-cms`,
     {
       resolve: `gatsby-source-filesystem`,
       options: {
         path: `${__dirname}/content/blog`,
         name: `blog`,
+      },
+    },
+    {
+      resolve: `gatsby-source-filesystem`,
+      options: {
+        path: `${__dirname}/content/author`,
+        name: `author`,
+      },
+    },
+    {
+      resolve: `gatsby-source-filesystem`,
+      options: {
+        path: `${__dirname}/content/category`,
+        name: `category`,
       },
     },
     {

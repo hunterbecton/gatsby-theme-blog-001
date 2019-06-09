@@ -1,15 +1,15 @@
 import React from "react"
 import { StaticQuery, graphql } from "gatsby"
 
-function FeaturedSidebar() {
+function RecentSidebar() {
     return (
       <StaticQuery
-        query={featuredSidebarQuery}
+        query={recentSidebarQuery}
         render={data => {
           const posts = data.allMarkdownRemark.edges
           return (
             <div>
-              <h1>Featured Posts</h1>
+              <h1>Recent Posts</h1>
             {posts.map(({ node }) => {
             const title = node.frontmatter.title || node.fields.slug
             return (
@@ -25,11 +25,11 @@ function FeaturedSidebar() {
     )
   }
 
-const featuredSidebarQuery = graphql`
-  query FeaturedSidebarQuery {
+const recentSidebarQuery = graphql`
+  query RecentSidebarQuery {
     allMarkdownRemark(
         sort: { fields: [frontmatter___date], order: DESC }
-        filter: { frontmatter: {featured: {eq: true}}}
+        filter: { frontmatter: { templateKey: {eq: "blog-post"}}}
         limit: 3
         ){
         edges {
@@ -42,8 +42,6 @@ const featuredSidebarQuery = graphql`
               date(formatString: "MMMM DD, YYYY")
               title
               description
-              featured
-              templateKey
             }
           }
         }
@@ -51,4 +49,4 @@ const featuredSidebarQuery = graphql`
   }
 `
 
-export default FeaturedSidebar
+export default RecentSidebar

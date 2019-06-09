@@ -1,59 +1,85 @@
-const path = require(`path`)
-const { createFilePath } = require(`gatsby-source-filesystem`)
+const _ = require('lodash')
+const path = require('path')
+const { createFilePath } = require('gatsby-source-filesystem')
+const { fmImagesToRelative } = require('gatsby-remark-relative-images')
 
-exports.createPages = ({ graphql, actions }) => {
+exports.createPages = ({ actions, graphql }) => {
   const { createPage } = actions
 
-  const blogPost = path.resolve(`./src/templates/blog-post.js`)
-  return graphql(
-    `
-      {
-        allMarkdownRemark(
-          sort: { fields: [frontmatter___date], order: DESC }
-          limit: 1000
-        ) {
-          edges {
-            node {
-              fields {
-                slug
-              }
-              frontmatter {
-                title
-              }
+  return graphql(`
+    {
+      allMarkdownRemark(limit: 1000) {
+        edges {
+          node {
+            id
+            fields {
+              slug
+            }
+            frontmatter {
+              author
+              categories
+              templateKey
+              path
             }
           }
         }
       }
-    `
-  ).then(result => {
+    }
+  `).then(result => {
     if (result.errors) {
-      throw result.errors
+      result.errors.forEach(e => console.error(e.toString()))
+      return Promise.reject(result.errors)
     }
 
-    // Create blog posts pages.
     const posts = result.data.allMarkdownRemark.edges
 
-    posts.forEach((post, index) => {
-      const previous = index === posts.length - 1 ? null : posts[index + 1].node
-      const next = index === 0 ? null : posts[index - 1].node
+    posts.forEach(edge => {
+      const id = edge.node.id
+      if (edge.node.frontmatter.templateKey === "blog-post") {
+        createPage({
+          path: edge.node.frontmatter.path,
+          component: path.resolve(
+            `src/templates/${String(edge.node.frontmatter.templateKey)}.js`
+          ),
+          // additional data can be passed via context
+          context: {
+            templateKey: edge.node.frontmatter.templateKey,
+            slug: edge.node.fields.slug,
+            id,
+          },
+        })
+      }
+    })
+    
+    // Category pages:
+    let categories = []
+    // Iterate through each post, putting all found categories into `categories`
+    posts.forEach(edge => {
+      if (_.get(edge, `node.frontmatter.categories`)) {
+        categories = categories.concat(edge.node.frontmatter.categories)
+      }
+    })
+    // Eliminate duplicate categories
+    categories = _.uniq(categories)
+
+    // Make category pages
+    categories.forEach(category => {
+      const categoryPath = `/category/${_.kebabCase(category)}/`
 
       createPage({
-        path: post.node.fields.slug,
-        component: blogPost,
+        path: categoryPath,
+        component: path.resolve(`src/templates/category.js`),
         context: {
-          slug: post.node.fields.slug,
-          previous,
-          next,
+          category: category,
         },
       })
     })
-
-    return null
   })
 }
 
 exports.onCreateNode = ({ node, actions, getNode }) => {
   const { createNodeField } = actions
+  fmImagesToRelative(node) // convert image paths for gatsby images
 
   if (node.internal.type === `MarkdownRemark`) {
     const value = createFilePath({ node, getNode })

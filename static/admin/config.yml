@@ -21,7 +21,7 @@ collections:
       - { name: "description", label: "Description",  widget: "string", required: false }
       - { name: "body", label: "Body", widget: "markdown" }
       - { name: "author", label: "Author", widget: "relation", collection: "author", searchFields: ["name"], valueField: "name", multiple: false }
-      - { name: "category", label: "Category", widget: "relation", collection: "category", searchFields: ["title"], valueField: "title", multiple: true, required: false }
+      - { name: "categories", label: "Categories", widget: "relation", collection: "categories", searchFields: ["title"], valueField: "title", multiple: true, required: false }
       - { name: "featureImage", label: "Feature Image", widget: "image", required: false }
       - { name: "path", label: "Path", widget: "string" }
       - { name: "date", label: "Date", widget: date }

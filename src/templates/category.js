@@ -1,30 +1,22 @@
 import React from "react"
 import { Link, graphql } from "gatsby"
 
-import Bio from "../components/bio"
-import CategorySidebar from "../components/categorySidebar"
-import FeaturedSidebar from "../components/featuredSidebar"
 import Layout from "../components/layout"
-import RecentSidebar from "../components/recentSidebar"
-import SEO from "../components/seo"
 
-class BlogIndex extends React.Component {
+class CategoryTemplate extends React.Component {
   render() {
-    const { data } = this.props
-    const siteTitle = data.site.siteMetadata.title
-    const posts = data.allMarkdownRemark.edges
+    const posts = this.props.data.allMarkdownRemark.edges
+    const siteTitle = this.props.data.site.siteMetadata.title
 
     return (
       <Layout location={this.props.location} title={siteTitle}>
-        <SEO title="All posts" />
-        <Bio />
         {posts.map(({ node }) => {
           const title = node.frontmatter.title || node.fields.slug
           return (
             <div key={node.fields.slug}>
               <h3
               >
-                <Link style={{ boxShadow: `none` }} to={node.fields.slug}>
+                <Link style={{ boxShadow: `none` }} to={node.frontmatter.path}>
                   {title}
                 </Link>
               </h3>
@@ -37,35 +29,35 @@ class BlogIndex extends React.Component {
             </div>
           )
         })}
-        <FeaturedSidebar />
-        <RecentSidebar />
-        <CategorySidebar />
       </Layout>
     )
   }
 }
 
-export default BlogIndex
+export default CategoryTemplate
 
 export const pageQuery = graphql`
-  query {
+  query CategoryBySlug($category: String!) {
     site {
       siteMetadata {
         title
+        author
       }
     }
-    allMarkdownRemark(sort: { fields: [frontmatter___date], order: DESC }) {
+    allMarkdownRemark(filter: {frontmatter: {templateKey: {eq: "blog-post"}, categories: {eq: $category}}}) {
       edges {
         node {
-          excerpt
+          id
           fields {
             slug
           }
           frontmatter {
-            date(formatString: "MMMM DD, YYYY")
+            path
             title
+            date
+            author
+            categories
             description
-            featured
           }
         }
       }
