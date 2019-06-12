@@ -31,6 +31,7 @@ collections:
       - name: "metadata"
         label: "Metadata"
         widget: "object" 
+        required: false
         fields: 
         - { name: seoTitle, label: SEO Title, widget: "string", required: false }
         - { name: seoDescription, label: SEO Description, widget: "text", required: false }
