@@ -8,6 +8,10 @@ categories:
 path: a-new-day
 date: 2019-06-08T11:46:36.389Z
 featured: true
-metadata: {}
+metadata:
+  seoDescription: Test Description
+  seoImage: /img/image-1.jpg
+  seoKeywords: 'test, test'
+  seoTitle: Test Title
 ---
 Here is the body for the new blog! Woo!

@@ -9,6 +9,10 @@ categories:
 path: test-guide-blog
 date: 2019-06-09T04:24:07.677Z
 featured: false
-metadata: {}
+metadata:
+  seoDescription: Test Description
+  seoImage: /img/image-1.jpg
+  seoKeywords: 'test, test'
+  seoTitle: Test Title
 ---
 And just another test blog content.
