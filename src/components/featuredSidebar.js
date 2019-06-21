@@ -9,12 +9,12 @@ function FeaturedSidebar() {
           const posts = data.allMarkdownRemark.edges
           return (
             <div>
-              <h1>Featured Posts</h1>
+              <h3>Featured Posts</h3>
             {posts.map(({ node }) => {
             const title = node.frontmatter.title || node.fields.slug
             return (
               <div>
-                <h2>{title}</h2>
+                <p>{title}</p>
               </div>
             )
             })}

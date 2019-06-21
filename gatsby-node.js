@@ -1,14 +1,18 @@
-const _ = require('lodash')
-const path = require('path')
-const { createFilePath } = require('gatsby-source-filesystem')
-const { fmImagesToRelative } = require('gatsby-remark-relative-images')
+const _ = require("lodash")
+const path = require("path")
+const { createFilePath } = require("gatsby-source-filesystem")
+const { fmImagesToRelative } = require("gatsby-remark-relative-images")
+const createPaginatedPages = require("gatsby-paginate")
 
 exports.createPages = ({ actions, graphql }) => {
   const { createPage } = actions
 
   return graphql(`
     {
-      allMarkdownRemark(limit: 1000) {
+      allMarkdownRemark(
+        limit: 1000
+        sort: { fields: [frontmatter___date], order: DESC }
+      ) {
         edges {
           node {
             id
@@ -16,10 +20,14 @@ exports.createPages = ({ actions, graphql }) => {
               slug
             }
             frontmatter {
+              description
+              date(formatString: "MMMM DD, YYYY")
+              title
               authors
               categories
-              templateKey
+              date(formatString: "MMMM DD, YYYY")
               path
+              templateKey
             }
           }
         }
@@ -33,6 +41,25 @@ exports.createPages = ({ actions, graphql }) => {
 
     const posts = result.data.allMarkdownRemark.edges
 
+    // Paginated blog
+    let blogs = []
+    // Iterate through all nodes, putting all found blogs (where templateKey = blog-post) into `blogs`
+    posts.forEach(edge => {
+      if (_.isMatch(edge.node.frontmatter, { templateKey: "blog-post" })) {
+        blogs = blogs.concat(edge)
+      }
+    })
+    // Create paginated pages for blogs
+    createPaginatedPages({
+      edges: blogs,
+      createPage: createPage,
+      pageTemplate: "src/templates/blog-feed.js",
+      pageLength: 6, // This is optional and defaults to 10 if not used
+      pathPrefix: "/", // This is optional and defaults to an empty string if not used
+      context: {}, // This is optional and defaults to an empty object if not used
+    })
+
+    // Create individual blog posts:
     posts.forEach(edge => {
       const id = edge.node.id
       if (edge.node.frontmatter.templateKey === "blog-post") {
@@ -50,8 +77,8 @@ exports.createPages = ({ actions, graphql }) => {
         })
       }
     })
-    
-    // Category pages:
+
+    // Category pages
     let categories = []
     // Iterate through each post, putting all found categories into `categories`
     posts.forEach(edge => {
@@ -64,11 +91,25 @@ exports.createPages = ({ actions, graphql }) => {
 
     // Make category pages
     categories.forEach(category => {
-      const categoryPath = `/category/${_.kebabCase(category)}/`
+      const categoryPath = `/category/${_.kebabCase(category)}`
 
-      createPage({
-        path: categoryPath,
-        component: path.resolve(`src/templates/category.js`),
+      let blogsByCategory = []
+      // Iterate through all nodes, putting all found blogs (where templateKey = blog-post and category node) into `blogsByCategory`
+      posts.forEach(edge => {
+        if (
+          _.isMatch(edge.node.frontmatter, { templateKey: "blog-post" }) &&
+          _.includes(edge.node.frontmatter.categories, category)
+        ) {
+          blogsByCategory = blogsByCategory.concat(edge)
+        }
+      })
+      // Create paginated pages for categories
+      createPaginatedPages({
+        edges: blogsByCategory,
+        createPage: createPage,
+        pageTemplate: "src/templates/category.js",
+        pageLength: 6, // This is optional and defaults to 10 if not used
+        pathPrefix: categoryPath, // This is optional and defaults to an empty string if not used
         context: {
           category: category,
         },
@@ -88,16 +129,31 @@ exports.createPages = ({ actions, graphql }) => {
 
     // Make author pages
     authors.forEach(author => {
-      const authorPath = `/author/${_.kebabCase(author)}/`
+      const authorPath = `/author/${_.kebabCase(author)}`
 
-      createPage({
-        path: authorPath,
-        component: path.resolve(`src/templates/author.js`),
+      let blogsByAuthor = []
+      // Iterate through all nodes, putting all found blogs (where templateKey = blog-post and author node) into `blogByAuthor`
+      posts.forEach(edge => {
+        if (
+          _.isMatch(edge.node.frontmatter, { templateKey: "blog-post" }) &&
+          _.includes(edge.node.frontmatter.authors, author)
+        ) {
+          blogsByAuthor = blogsByAuthor.concat(edge)
+        }
+      })
+      // Create paginated pages for authors
+      createPaginatedPages({
+        edges: blogsByAuthor,
+        createPage: createPage,
+        pageTemplate: "src/templates/author.js",
+        pageLength: 6, // This is optional and defaults to 10 if not used
+        pathPrefix: authorPath, // This is optional and defaults to an empty string if not used
         context: {
           author: author,
         },
       })
     })
+
   })
 }
 

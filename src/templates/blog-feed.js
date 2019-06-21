@@ -1,60 +1,47 @@
-import React from "react"
-import { Link, graphql } from "gatsby"
+import React from 'react'
+import Link from 'gatsby-link'
 
+import CategorySidebar from "../components/categorySidebar"
+import FeaturedSidebar from "../components/featuredSidebar"
 import Layout from "../components/layout"
-import SEO from "../components/seo"
+import RecentSidebar from "../components/recentSidebar"
 
-class BlogFeedTemplate extends React.Component {
-  render() {
-    const post = this.props.data.markdownRemark
-    const siteTitle = this.props.data.site.siteMetadata.title
-
-    return (
-      <Layout location={this.props.location} title={siteTitle}>
-        <SEO
-          title={post.frontmatter.title}
-          description={post.frontmatter.description}
-        />
-        <h1>{post.frontmatter.title}</h1>
-        <p>{post.frontmatter.author}</p>
-        <p>{post.frontmatter.date}</p>
-        <p>{post.frontmatter.categories}</p>
-        <div dangerouslySetInnerHTML={{ __html: post.html }} />
-        <hr/>
-        <Bio />
-      </Layout>
-    )
+const NavLink = props => {
+  if (!props.test) {
+    return <Link to={props.url}>{props.text}</Link>
+  } else {
+    return <span>{props.text}</span>
   }
 }
 
-export default BlogFeedTemplate
-
-export const pageQuery = graphql`
-  query BlogFeed($slug: String!) {
-    site {
-      siteMetadata {
-        title
-        author
-      }
-    }
-    allMarkdownRemark(
-      sort: { fields: [frontmatter___date], order: DESC }
-      filter: { frontmatter: { templateKey: {eq: "blog-post"}}}
-      limit: 6
-      ){
-      edges {
-        node {
-          excerpt
-          fields {
-            slug
-          }
-          frontmatter {
-            date(formatString: "MMMM DD, YYYY")
-            title
-            description
-          }
-        }
-      }
-    }
-  }
-`
+const IndexPage = ({ pageContext }) => {
+  const { group, index, first, last, pageCount } = pageContext
+  const previousUrl = index - 1 === 1 ? '/' : (index - 1).toString()
+  const nextUrl = (index + 1).toString()
+   
+  return (
+    <Layout>
+      <h4>{pageCount} Pages</h4>
+ 
+      {group.map(({ node }) => (
+        <div key={node.id} className="blogListing">
+          <div className="date">{node.frontmatter.date}</div>
+          <Link className="blogUrl" to={node.frontmatter.path}>
+            {node.frontmatter.title}
+          </Link>
+          <div>{node.excerpt}</div>
+        </div>
+      ))}
+      <div className="previousLink">
+        <NavLink test={first} url={previousUrl} text="Previous Page" />
+      </div>
+      <div className="nextLink">
+        <NavLink test={last} url={nextUrl} text="Next Page" />
+      </div>
+      <FeaturedSidebar />
+      <RecentSidebar />
+      <CategorySidebar />
+    </Layout>
+  )
+}
+export default IndexPage

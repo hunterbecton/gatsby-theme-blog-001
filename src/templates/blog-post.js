@@ -1,8 +1,10 @@
 import React from "react"
 import { Link, graphql } from "gatsby"
 
-import Bio from "../components/bio"
+import CategorySidebar from "../components/categorySidebar"
+import FeaturedSidebar from "../components/featuredSidebar"
 import Layout from "../components/layout"
+import RecentSidebar from "../components/recentSidebar"
 import SEO from "../components/seo"
 
 class BlogPostTemplate extends React.Component {
@@ -11,7 +13,7 @@ class BlogPostTemplate extends React.Component {
     const siteTitle = this.props.data.site.siteMetadata.title
 
     return (
-      <Layout location={this.props.location} title={siteTitle}>
+      <Layout>
         <SEO
           title={post.frontmatter.title}
           description={post.frontmatter.description}
@@ -22,7 +24,9 @@ class BlogPostTemplate extends React.Component {
         <p>{post.frontmatter.categories}</p>
         <div dangerouslySetInnerHTML={{ __html: post.html }} />
         <hr/>
-        <Bio />
+        <FeaturedSidebar />
+        <RecentSidebar />
+        <CategorySidebar />
       </Layout>
     )
   }

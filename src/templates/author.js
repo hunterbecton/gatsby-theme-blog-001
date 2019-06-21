@@ -1,66 +1,54 @@
-import React from "react"
-import { Link, graphql } from "gatsby"
+import React from 'react'
+import Link from 'gatsby-link'
+import _ from 'lodash'
 
+import BlogCard from "../components/blogCard"
+import CategorySidebar from "../components/categorySidebar"
+import FeaturedSidebar from "../components/featuredSidebar"
 import Layout from "../components/layout"
+import RecentSidebar from "../components/recentSidebar"
 
-class AuthorTemplate extends React.Component {
-  render() {
-    const posts = this.props.data.allMarkdownRemark.edges
-    const siteTitle = this.props.data.site.siteMetadata.title
-
-    return (
-      <Layout location={this.props.location} title={siteTitle}>
-        {posts.map(({ node }) => {
-          const title = node.frontmatter.title || node.fields.slug
-          return (
-            <div key={node.fields.slug}>
-              <h3
-              >
-                <Link style={{ boxShadow: `none` }} to={node.frontmatter.path}>
-                  {title}
-                </Link>
-              </h3>
-              <small>{node.frontmatter.date}</small>
-              <p
-                dangerouslySetInnerHTML={{
-                  __html: node.frontmatter.description || node.excerpt,
-                }}
-              />
-            </div>
-          )
-        })}
-      </Layout>
-    )
+const NavLink = props => {
+  if (!props.test) {
+    return <Link to={props.url}>{props.text}</Link>
+  } else {
+    return <span>{props.text}</span>
   }
 }
 
-export default AuthorTemplate
+const AuthorPage = ({ pageContext }) => {
+  const { group, index, first, last, pageCount, author } = pageContext
 
-export const pageQuery = graphql`
-  query PostsByAuthor($author: String!) {
-    site {
-      siteMetadata {
-        title
-        author
-      }
-    }
-    allMarkdownRemark(filter: {frontmatter: {templateKey: {eq: "blog-post"}, authors: {eq: $author}}}) {
-      edges {
-        node {
-          id
-          fields {
-            slug
-          }
-          frontmatter {
-            path
-            title
-            date
-            authors
-            categories
-            description
-          }
-        }
-      }
-    }
-  }
-`
+  const authorLink = _.kebabCase(author);
+
+  const previousUrl = index - 1 === 1 ? `/author/${authorLink}` : `/author/${authorLink}/` + (index - 1).toString()
+  const nextUrl = `/author/${authorLink}/` + (index + 1).toString()
+ 
+  console.log(group);
+
+  return (
+    <Layout>
+      <h4>{pageCount} Pages</h4>
+      {group.map(({ node }) => (
+        <BlogCard
+          key={node.id}
+          categories={node.frontmatter.categories}
+          title={node.frontmatter.title}
+          description={node.frontmatter.description}
+          authors={node.frontmatter.authors}
+          date={node.frontmatter.date}
+        />
+      ))}
+      <div className="previousLink">
+        <NavLink test={first} url={previousUrl} text="Previous Page" />
+      </div>
+      <div className="nextLink">
+        <NavLink test={last} url={nextUrl} text="Next Page" />
+      </div>
+      <FeaturedSidebar />
+      <RecentSidebar />
+      <CategorySidebar />
+    </Layout>
+  )
+}
+export default AuthorPage

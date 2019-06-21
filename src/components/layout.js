@@ -1,53 +1,18 @@
 import React from "react"
-import { Link } from "gatsby"
+import PropTypes from "prop-types"
 
-class Layout extends React.Component {
-  render() {
-    const { location, title, children } = this.props
-    const rootPath = `${__PATH_PREFIX__}/`
-    let header
+const Layout = ({ children }) => {
 
-    if (location.pathname === rootPath) {
-      header = (
-        <h1
-        >
-          <Link
-            style={{
-              boxShadow: `none`,
-              textDecoration: `none`,
-              color: `inherit`,
-            }}
-            to={`/`}
-          >
-            {title}
-          </Link>
-        </h1>
-      )
-    } else {
-      header = (
-        <h3
-          style={{
-            fontFamily: `Montserrat, sans-serif`,
-            marginTop: 0,
-          }}
-        >
-          <Link
-            style={{
-              boxShadow: `none`,
-              textDecoration: `none`,
-              color: `inherit`,
-            }}
-            to={`/`}
-          >
-            {title}
-          </Link>
-        </h3>
-      )
-    }
-    return (
+  return (
+    <>
       <div
+        style={{
+          margin: `0 auto`,
+          maxWidth: 960,
+          padding: `0px 1.0875rem 1.45rem`,
+          paddingTop: 0,
+        }}
       >
-        <header>{header}</header>
         <main>{children}</main>
         <footer>
           © {new Date().getFullYear()}, Built with
@@ -55,8 +20,12 @@ class Layout extends React.Component {
           <a href="https://www.gatsbyjs.org">Gatsby</a>
         </footer>
       </div>
-    )
-  }
+    </>
+  )
+}
+
+Layout.propTypes = {
+  children: PropTypes.node.isRequired,
 }
 
 export default Layout

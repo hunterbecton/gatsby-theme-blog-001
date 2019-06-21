@@ -9,15 +9,15 @@ function CategorySidebar() {
         const categories = data.allMarkdownRemark.edges
         return (
           <div>
-            <h1>Categories</h1>
-          {categories.map(({ node }) => {
-          const title = node.frontmatter.title || node.fields.slug
-          return (
-            <div>
-              <p>{title}</p>
-            </div>
-          )
-          })}
+            <h3>Categories</h3>
+            {categories.map(({ node }) => {
+              const title = node.frontmatter.title || node.fields.slug
+              return (
+                <div>
+                  <p>{title}</p>
+                </div>
+              )
+            })}
           </div>
         )
       }}
@@ -27,7 +27,11 @@ function CategorySidebar() {
 
 const categorySidebarQuery = graphql`
   query CategorySidebarQuery {
-    allMarkdownRemark(filter: {frontmatter: {sidebar: {eq: true}}}) {
+    allMarkdownRemark(
+      sort: { fields: [frontmatter___date], order: DESC }
+      filter: { frontmatter: { sidebar: { eq: true } } }
+      limit: 12
+    ) {
       edges {
         node {
           id
