@@ -5,6 +5,7 @@ authors:
   - Hunter Becton
 categories:
   - Travel
+featureImage: /img/image-1.jpg
 path: here-we-go-again
 date: 2019-06-12T11:57:16.709Z
 featured: false
