@@ -5,6 +5,7 @@ authors:
   - Hunter Becton
 categories:
   - Travel
+featureImage: /img/image-1.jpg
 path: a-new-day
 date: 2019-06-08T11:46:36.389Z
 featured: true
