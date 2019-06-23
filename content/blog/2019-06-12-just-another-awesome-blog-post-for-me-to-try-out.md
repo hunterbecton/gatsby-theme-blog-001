@@ -6,6 +6,7 @@ authors:
   - Hunter Becton
 categories:
   - Guide
+featureImage: /img/image-1.jpg
 path: awesome-blog-post
 date: 2019-06-12T11:55:55.806Z
 featured: false
