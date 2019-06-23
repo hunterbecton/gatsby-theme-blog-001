@@ -1,53 +1,63 @@
 import React from "react"
-import { StaticQuery, graphql } from "gatsby"
+import { StaticQuery, graphql, navigate } from "gatsby"
+import _ from "lodash"
 
 function FeaturedSidebar() {
-    return (
-      <StaticQuery
-        query={featuredSidebarQuery}
-        render={data => {
-          const posts = data.allMarkdownRemark.edges
-          return (
-            <div>
-              <h3>Featured Posts</h3>
+  return (
+    <StaticQuery
+      query={featuredSidebarQuery}
+      render={data => {
+        const posts = data.allMarkdownRemark.edges
+        return (
+          <div>
+            <h3>Featured Posts</h3>
             {posts.map(({ node }) => {
-            const title = node.frontmatter.title || node.fields.slug
-            return (
-              <div>
-                <p>{title}</p>
-              </div>
-            )
+              const blogLink = _.kebabCase(node.frontmatter.path)
+              const title = node.frontmatter.title
+              return (
+                <div>
+                  <p
+                    onClick={() => {
+                      navigate(`/${blogLink}`)
+                    }}
+                  >
+                    {title}
+                  </p>
+                  <p>{node.frontmatter.date}</p>
+                </div>
+              )
             })}
-            </div>
-          )
-        }}
-      />
-    )
-  }
+          </div>
+        )
+      }}
+    />
+  )
+}
 
 const featuredSidebarQuery = graphql`
   query FeaturedSidebarQuery {
     allMarkdownRemark(
-        sort: { fields: [frontmatter___date], order: DESC }
-        filter: { frontmatter: {featured: {eq: true}}}
-        limit: 3
-        ){
-        edges {
-          node {
-            excerpt
-            fields {
-              slug
-            }
-            frontmatter {
-              date(formatString: "MMMM DD, YYYY")
-              title
-              description
-              featured
-              templateKey
-            }
+      sort: { fields: [frontmatter___date], order: DESC }
+      filter: { frontmatter: { featured: { eq: true } } }
+      limit: 3
+    ) {
+      edges {
+        node {
+          excerpt
+          fields {
+            slug
+          }
+          frontmatter {
+            date(formatString: "MMMM DD, YYYY")
+            title
+            description
+            featured
+            templateKey
+            path
           }
         }
       }
+    }
   }
 `
 

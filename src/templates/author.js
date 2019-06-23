@@ -1,6 +1,6 @@
-import React from 'react'
-import Link from 'gatsby-link'
-import _ from 'lodash'
+import React from "react"
+import Link from "gatsby-link"
+import _ from "lodash"
 
 import BlogCard from "../components/blogCard"
 import CategorySidebar from "../components/categorySidebar"
@@ -19,12 +19,15 @@ const NavLink = props => {
 const AuthorPage = ({ pageContext }) => {
   const { group, index, first, last, pageCount, author } = pageContext
 
-  const authorLink = _.kebabCase(author);
+  const authorLink = _.kebabCase(author)
 
-  const previousUrl = index - 1 === 1 ? `/author/${authorLink}` : `/author/${authorLink}/` + (index - 1).toString()
+  const previousUrl =
+    index - 1 === 1
+      ? `/author/${authorLink}`
+      : `/author/${authorLink}/` + (index - 1).toString()
   const nextUrl = `/author/${authorLink}/` + (index + 1).toString()
- 
-  console.log(group);
+
+  console.log(group)
 
   return (
     <Layout>
@@ -32,6 +35,7 @@ const AuthorPage = ({ pageContext }) => {
       {group.map(({ node }) => (
         <BlogCard
           key={node.id}
+          link={node.frontmatter.path}
           categories={node.frontmatter.categories}
           title={node.frontmatter.title}
           description={node.frontmatter.description}

@@ -149,8 +149,7 @@ exports.createPages = ({ actions, graphql }) => {
         pageLength: 6, // This is optional and defaults to 10 if not used
         pathPrefix: authorPath, // This is optional and defaults to an empty string if not used
         context: {
-          author: author,
-        },
+          author: author,        },
       })
     })
 

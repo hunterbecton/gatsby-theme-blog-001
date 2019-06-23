@@ -1,5 +1,6 @@
 import React from "react"
-import { StaticQuery, graphql } from "gatsby"
+import { StaticQuery, graphql, navigate } from "gatsby"
+import _ from "lodash"
 
 function CategorySidebar() {
   return (
@@ -11,11 +12,16 @@ function CategorySidebar() {
           <div>
             <h3>Categories</h3>
             {categories.map(({ node }) => {
-              const title = node.frontmatter.title || node.fields.slug
+              const title = node.frontmatter.title
+              const categoryLink = _.kebabCase(title)
               return (
-                <div>
-                  <p>{title}</p>
-                </div>
+                <button
+                  onClick={() => {
+                    navigate(`/category/${categoryLink}`)
+                  }}
+                >
+                  {title}
+                </button>
               )
             })}
           </div>
