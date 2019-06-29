@@ -16,6 +16,7 @@ function CategorySidebar() {
               const categoryLink = _.kebabCase(title)
               return (
                 <button
+                  key={node.id}
                   onClick={() => {
                     navigate(`/category/${categoryLink}`)
                   }}

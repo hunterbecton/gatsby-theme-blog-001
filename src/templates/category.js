@@ -17,7 +17,7 @@ const NavLink = props => {
 }
 
 const CategoryPage = ({ pageContext }) => {
-  const { group, index, first, last, pageCount, category } = pageContext
+  const { group, index, first, last, category } = pageContext
 
   const categoryLink = _.kebabCase(category)
 
@@ -29,11 +29,11 @@ const CategoryPage = ({ pageContext }) => {
 
   return (
     <Layout>
-      <h4>{pageCount} Pages</h4>
       {group.map(({ node }) => (
         <BlogCard
           key={node.id}
           link={node.frontmatter.path}
+          featureImage={node.frontmatter.featureImage.childImageSharp.fluid.src}
           categories={node.frontmatter.categories}
           title={node.frontmatter.title}
           description={node.frontmatter.description}

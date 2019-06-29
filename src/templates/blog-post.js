@@ -1,5 +1,5 @@
 import React from "react"
-import { Link, graphql } from "gatsby"
+import { graphql } from "gatsby"
 
 import CategorySidebar from "../components/categorySidebar"
 import FeaturedSidebar from "../components/featuredSidebar"
@@ -10,7 +10,6 @@ import SEO from "../components/seo"
 class BlogPostTemplate extends React.Component {
   render() {
     const post = this.props.data.markdownRemark
-    const siteTitle = this.props.data.site.siteMetadata.title
 
     return (
       <Layout>
@@ -51,8 +50,14 @@ export const pageQuery = graphql`
         description
         authors
         categories
-        featureImage
-      }
+        featureImage {
+          childImageSharp {
+            fluid {
+              src
+            }
+          }
+        }
     }
   }
+}
 `

@@ -22,12 +22,25 @@ exports.createPages = ({ actions, graphql }) => {
             frontmatter {
               description
               date(formatString: "MMMM DD, YYYY")
+              featureImage {
+                childImageSharp {
+                  fluid {
+                    src
+                  }
+                }
+              }
               title
               authors
               categories
-              date(formatString: "MMMM DD, YYYY")
               path
               templateKey
+              profileImage {
+                childImageSharp {
+                  fluid {
+                    src
+                  }
+                }
+              }
             }
           }
         }

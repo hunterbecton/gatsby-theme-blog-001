@@ -17,7 +17,7 @@ const NavLink = props => {
 }
 
 const AuthorPage = ({ pageContext }) => {
-  const { group, index, first, last, pageCount, author } = pageContext
+  const { group, index, first, last, author } = pageContext
 
   const authorLink = _.kebabCase(author)
 
@@ -27,15 +27,13 @@ const AuthorPage = ({ pageContext }) => {
       : `/author/${authorLink}/` + (index - 1).toString()
   const nextUrl = `/author/${authorLink}/` + (index + 1).toString()
 
-  console.log(group)
-
   return (
     <Layout>
-      <h4>{pageCount} Pages</h4>
       {group.map(({ node }) => (
         <BlogCard
           key={node.id}
           link={node.frontmatter.path}
+          featureImage={node.frontmatter.featureImage.childImageSharp.fluid.src}
           categories={node.frontmatter.categories}
           title={node.frontmatter.title}
           description={node.frontmatter.description}

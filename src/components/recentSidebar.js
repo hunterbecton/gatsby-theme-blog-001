@@ -15,7 +15,7 @@ function RecentSidebar() {
               const blogLink = _.kebabCase(node.frontmatter.path)
               const title = node.frontmatter.title
               return (
-                <div>
+                <div key={node.id}>
                   <p
                     onClick={() => {
                       navigate(`/${blogLink}`)
@@ -43,6 +43,7 @@ const recentSidebarQuery = graphql`
     ) {
       edges {
         node {
+          id
           excerpt
           fields {
             slug
