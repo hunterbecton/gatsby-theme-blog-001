@@ -1,8 +1,10 @@
 ---
 templateKey: blog-post
 title: Here goes another awesome blog for people to check out
-authors:
-  - Hunter Becton
+description: >-
+  Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
+  incididunt ut labore et dolore magna aliqua.
+author: Hunter Becton
 categories:
   - Travel
 featureImage: /img/image-1.jpg
@@ -10,7 +12,9 @@ path: omg-this-is-awesome
 date: 2019-06-12T11:59:29.291Z
 featured: false
 metadata:
-  seoDescription: Test Description
+  seoDescription: >-
+    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
+    tempor incididunt ut labore et dolore magna aliqua.
   seoImage: /img/image-1.jpg
   seoKeywords: 'test, test'
   seoTitle: Test Title
