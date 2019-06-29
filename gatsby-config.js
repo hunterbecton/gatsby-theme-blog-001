@@ -8,10 +8,10 @@ module.exports = {
   plugins: [
     `gatsby-plugin-emotion`,
     {
-      resolve: 'gatsby-source-filesystem',
+      resolve: "gatsby-source-filesystem",
       options: {
         path: `${__dirname}/static/img`,
-        name: 'image',
+        name: "image",
       },
     },
     {
