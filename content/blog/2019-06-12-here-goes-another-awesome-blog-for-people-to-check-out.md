@@ -9,7 +9,7 @@ categories:
   - Travel
 featureImage: /img/image-1.jpg
 path: omg-this-is-awesome
-date: 2019-06-12T11:59:29.291Z
+date: 2019-06-28T11:59:29.291Z
 featured: false
 metadata:
   seoDescription: >-
